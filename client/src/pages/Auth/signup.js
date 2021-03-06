@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 import * as ROUTES from "../../constants/routes";
 import { auth, firestore } from "../../firebase";
 import { doesUsernameExist } from "../../services/firebase";
@@ -23,23 +24,35 @@ function Signup() {
         values.email,
         values.password
       );
+
       await createdUser.user.updateProfile({
         displayName: values.username,
       });
 
-      await firestore.collection("users").add({
+      const newUser = {
         userId: createdUser.user.uid,
         username: values.username.toLowerCase(),
         emailAddress: values.email.toLowerCase(),
         phoneNumber: values.phoneNum,
         password: values.password,
-      });
+        token: createdUser.user.refreshToken,
+      };
+
+      await firestore.collection("users").add(newUser);
+      try {
+        const newLocal = `${process.env.REACT_APP_LOCAL_URL}/api/users/save-user`;
+        const res = await axios.post(newLocal, newUser);
+        console.log(res);
+      } catch (err) {
+        setError(err.message);
+      }
       history.push(ROUTES.LANDING);
     } else {
       setValues({ ...values, username: "" });
       setError("That username is already taken, please try another.");
     }
   };
+
   return (
     <div>
       <div>

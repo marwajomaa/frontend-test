@@ -1,9 +1,19 @@
 import React from "react";
+import { TextField } from "@material-ui/core";
 
-function Input({ label, name, type, placeholder, className, onChange, value }) {
+function Input({
+  label,
+  name,
+  type,
+  placeholder,
+  className,
+  onChange,
+  value,
+  ...other
+}) {
   return (
     <div>
-      <input
+      <TextField
         aria-label={label}
         name={name}
         type={type}
@@ -11,6 +21,10 @@ function Input({ label, name, type, placeholder, className, onChange, value }) {
         className={className}
         onChange={onChange}
         value={value}
+        variant="outlined"
+        label={label}
+        style={{ width: "100%" }}
+        {...other}
       />
     </div>
   );
