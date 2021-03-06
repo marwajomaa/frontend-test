@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
+import Input from "../../components/Input";
 import styled from "@emotion/styled";
 import { auth } from "../../firebase.js";
 
@@ -49,7 +50,7 @@ function Login() {
         {error && <p>{error}</p>}
 
         <form onSubmit={handleLogin}>
-          <input
+          <Input
             aria-label="Enter your email address"
             name="email"
             type="email"
@@ -57,7 +58,7 @@ function Login() {
             onChange={(e) => handleInputChange(e)}
             value={values.email}
           />
-          <input
+          <Input
             aria-label="Enter your password"
             name="password"
             type="password"
