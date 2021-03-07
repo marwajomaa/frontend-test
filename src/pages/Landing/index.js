@@ -69,7 +69,7 @@ function Landing({ user: loggedInUser }) {
     document.title = "Landing page";
   }, []);
 
-  if (loading) return <h1>Loading....</h1>;
+  if (loading) return <h1>Loading.....</h1>;
   return (
     <LoggedInUserContext.Provider value={{ updatedUser }}>
       <div>
