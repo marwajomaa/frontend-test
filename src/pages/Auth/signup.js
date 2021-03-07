@@ -53,7 +53,7 @@ function Signup() {
     console.log(newUser, "uuuuuuuuuuuuuuuuuuuuuuuuuuuser");
 
     try {
-      const newLocal = "http://localhost/8000/api/users/save-user";
+      const newLocal = `${process.env.REACT_APP_LOCAL_URL}/api/users/save-user`;
       const res = await axios.post(newLocal, newUser);
       console.log(res);
       setMsg(res.data.msg);
