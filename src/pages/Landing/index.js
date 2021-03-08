@@ -10,7 +10,7 @@ import Input from "../../components/Input";
 function Landing({ user: loggedInUser }) {
   const history = useHistory();
   const { user } = useUser(loggedInUser.uid);
-  const [updatedUser, setUpdatedUser] = useState(user);
+  const [updatedUser, setUpdatedUser] = useState({});
   const [userData, setUserData] = useState({});
   const [update, setUpdate] = useState(false);
   const [msg, setMsg] = useState("");
@@ -53,7 +53,9 @@ function Landing({ user: loggedInUser }) {
           }
         );
         console.log(res.data.user, "0000000000000000000000000");
-        setUpdatedUser(res.data.user);
+        if (res) {
+          setUpdatedUser(res.data.user);
+        }
         const currentUser = auth.currentUser;
         await currentUser.updateEmail(userData.emailAddress);
         await currentUser.updatePassword(userData.password);
@@ -129,6 +131,18 @@ function Landing({ user: loggedInUser }) {
             </form>
             <div>
               <h3>See your updated Info here</h3>
+              <p>
+                <strong>Your Username:</strong> {updatedUser?.username}
+              </p>
+              <p>
+                <strong>Your Email:</strong> {updatedUser?.emailAddress}
+              </p>
+              <p>
+                <strong>Your Password:</strong> {updatedUser?.password}
+              </p>
+              <p>
+                <strong>Your phoneNumber:</strong> {updatedUser?.phoneNumber}
+              </p>
             </div>
           </div>
         )}

@@ -1,23 +1,19 @@
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
 import * as ROUTES from "../../constants/routes";
 import Input from "../../components/Input";
-import styled from "@emotion/styled";
+import Button from "../../components/Button";
 import { auth } from "../../firebase.js";
 import UserContext from "../../context/user";
-
-const Wrapper = styled("div")`
-  display: flex;
-`;
-
-const ContentWrapper = styled("div")`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  margin-top: 200px;
-`;
+import Logo from "../../assets/jereer-logo.png";
+import {
+  Wrapper,
+  ContentWrapper,
+  LogoWrapper,
+  InputDiv,
+  Paragraph,
+} from "./style.js";
 
 function Login() {
   const history = useHistory();
@@ -66,31 +62,53 @@ function Login() {
   return (
     <UserContext.Provider value={{ loggedInUser }}>
       <Wrapper>
+        <LogoWrapper>
+          <img
+            src={Logo}
+            alt="Jereer logo"
+            style={{ width: "100%", height: "100%" }}
+          />
+        </LogoWrapper>
         <ContentWrapper>
           {error && <p style={{ color: "red" }}>{error}</p>}
           {msg && <p style={{ color: "green" }}>{msg}</p>}
 
           <form onSubmit={handleLogin}>
-            <Input
-              aria-label="Enter your email address"
-              name="email"
-              type="email"
-              placeholder="Email address"
-              onChange={(e) => handleInputChange(e)}
-              value={values.email}
-            />
-            <Input
-              aria-label="Enter your password"
-              name="password"
-              type="password"
-              placeholder="Password"
-              onChange={(e) => handleInputChange(e)}
-              value={values.password}
-            />
-            <button disabled={isInvalid} type="submit">
-              Login
-            </button>
+            <InputDiv>
+              <Input
+                aria-label="Enter your email address"
+                name="email"
+                type="email"
+                placeholder="Email address"
+                onChange={(e) => handleInputChange(e)}
+                value={values.email}
+              />
+            </InputDiv>
+            <InputDiv>
+              <Input
+                aria-label="Enter your password"
+                name="password"
+                type="password"
+                placeholder="Password"
+                onChange={(e) => handleInputChange(e)}
+                value={values.password}
+              />
+            </InputDiv>
+            <InputDiv>
+              <Button
+                variant="contained"
+                color="primary"
+                text="Login"
+                type="submit"
+                disabled={isInvalid}
+                className="submit-btn"
+                style={{ width: "100%", height: "50px" }}
+              />
+            </InputDiv>
           </form>
+          <Link to={ROUTES.SIGN_UP} className="signup-option">
+            <Paragraph>Not a member yet?! Click to sign up</Paragraph>
+          </Link>
         </ContentWrapper>
       </Wrapper>
     </UserContext.Provider>
