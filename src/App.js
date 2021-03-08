@@ -30,7 +30,7 @@ function App() {
   if (!loggedInUser) return <h1>Loading...</h1>;
 
   return (
-    <UserContext.Provider value={{ user, loggedInUser }}>
+    <UserContext.Provider value={{ user }}>
       <Router>
         <Suspense fallback={<p>Loading...</p>}>
           <Switch>

@@ -14,9 +14,8 @@ function Landing({ user: loggedInUser }) {
   const [userData, setUserData] = useState({});
   const [update, setUpdate] = useState(false);
   const [msg, setMsg] = useState("");
-  const [loading, setLoading] = useState(false);
-
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -44,7 +43,7 @@ function Landing({ user: loggedInUser }) {
 
     if (user.token) {
       try {
-        await axios.patch(
+        const res = await axios.patch(
           `${process.env.REACT_APP_LOCAL_URL}/api/users/update-user/${user.userId}`,
           updateUserObj,
           {
@@ -53,13 +52,19 @@ function Landing({ user: loggedInUser }) {
             },
           }
         );
-        const updatedUser = await auth.currentUser.updateProfile({
-          updateUserObj,
-        });
-        setMsg("Update successful");
-        setUpdatedUser(updatedUser);
+        console.log(res.data.user, "0000000000000000000000000");
+        setUpdatedUser(res.data.user);
+        const currentUser = auth.currentUser;
+        await currentUser.updateEmail(userData.emailAddress);
+        await currentUser.updatePassword(userData.password);
+        console.log(
+          updatedUser,
+          "updatedUser-------------------------------------"
+        );
+        setMsg("Your info updated successfully");
       } catch (err) {
-        setError(err.response.data.error);
+        console.log(err.message);
+        setError(err.message);
       }
     }
   };
@@ -122,6 +127,9 @@ function Landing({ user: loggedInUser }) {
               />
               <button type="submit">Update</button>
             </form>
+            <div>
+              <h3>See your updated Info here</h3>
+            </div>
           </div>
         )}
       </div>
