@@ -44,7 +44,7 @@ function Landing({ user: loggedInUser }) {
 
     if (user.token) {
       try {
-        const res = await axios.patch(
+        await axios.patch(
           `${process.env.REACT_APP_LOCAL_URL}/api/users/update-user/${user.userId}`,
           updateUserObj,
           {
@@ -120,7 +120,7 @@ function Landing({ user: loggedInUser }) {
                 onChange={(e) => handleInputChange(e)}
                 value={userData.password}
               />
-              <button type="submit">Update your data</button>
+              <button type="submit">Update</button>
             </form>
           </div>
         )}

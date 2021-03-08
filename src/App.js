@@ -12,12 +12,12 @@ const Landing = lazy(() => import("./pages/Landing"));
 function App() {
   const { user } = useAuthListener();
 
-  const [loggedInUser, setLoggedInUser] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState({});
 
   useEffect(() => {
     const getUser = async () => {
       const userInfo = await getUserByUserId(user?.uid);
-      await setLoggedInUser(userInfo);
+      await setIsLoggedIn();
       localStorage.setItem("user", JSON.stringify(userInfo));
     };
     if (user?.uid) {
@@ -28,7 +28,7 @@ function App() {
   if (!user) return <h1>Loading...</h1>;
 
   return (
-    <UserContext.Provider value={{ user }}>
+    <UserContext.Provider value={{ user, isLoggedIn }}>
       <Router>
         <Suspense fallback={<p>Loading...</p>}>
           <Switch>
