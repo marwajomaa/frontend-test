@@ -1,10 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import * as ROUTES from "../../constants/routes";
-import { auth, firestore } from "../../firebase";
-import { doesUsernameExist } from "../../services/firebase";
-import styled from "@emotion/styled";
+import { auth } from "../../firebase";
 import Input from "../../components/Input";
 
 function Signup() {
@@ -14,6 +12,14 @@ function Signup() {
   const [msg, setMsg] = useState("");
   const [createdUser, setCreateUser] = useState();
   const [continueSignup, setContinueSignup] = useState(false);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const users = await axios.post("https://localhost:8080/users");
+      console.log(users);
+    };
+    getUsers();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -27,7 +33,7 @@ function Signup() {
         values.email,
         values.password
       );
-
+      console.log(createdUser, "createdUser---------------------------");
       if (createdUser.user.refreshToken) {
         setContinueSignup(true);
         setCreateUser(createdUser);
@@ -39,7 +45,6 @@ function Signup() {
   };
 
   const saveUser = async (e) => {
-    console.log(createdUser, "cccccccccccccccccccccccccccccc");
     e.preventDefault();
     const newUser = {
       userId: createdUser.user.uid,
@@ -49,8 +54,6 @@ function Signup() {
       password: values.password,
       token: createdUser.user.refreshToken,
     };
-
-    console.log(newUser, "uuuuuuuuuuuuuuuuuuuuuuuuuuuser");
 
     try {
       const newLocal = `${process.env.REACT_APP_LOCAL_URL}/api/users/save-user`;
@@ -63,6 +66,10 @@ function Signup() {
       setError(err.message);
     }
   };
+
+  useEffect(() => {
+    document.title = "Signup | Jereer";
+  }, []);
 
   return (
     <div>

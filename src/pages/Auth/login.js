@@ -1,12 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 import * as ROUTES from "../../constants/routes";
 import Input from "../../components/Input";
 import styled from "@emotion/styled";
-import { auth, firestore } from "../../firebase.js";
+import { auth } from "../../firebase.js";
 import UserContext from "../../context/user";
-import { Grid, makeStyles } from "@material-ui/core";
-import Logo from "../../assets/Jereer-clouds-Ver-Official.png";
 
 const Wrapper = styled("div")`
   display: flex;
@@ -23,8 +22,9 @@ const ContentWrapper = styled("div")`
 function Login() {
   const history = useHistory();
   const [values, setValues] = useState({});
-  const [loggedInUser, setLoggedInUser] = useState({});
+  const [loggedInUser] = useState({});
   const [error, setError] = useState("");
+  const [msg, setMsg] = useState("");
   const isInvalid =
     values.password === "" || values.password < 6 || values.email === "";
 
@@ -37,6 +37,21 @@ function Login() {
     try {
       await auth.signInWithEmailAndPassword(values.email, values.password);
 
+      const currentUser = await auth.currentUser;
+      if (currentUser) {
+        try {
+          const user = await axios.get(
+            `${process.env.REACT_APP_LOCAL_URL}/api/users/user/${currentUser.user.uid}`
+          );
+          if (user) {
+            localStorage.setItem("user", JSON.stringify(user.data));
+            setMsg(user.msg);
+          }
+        } catch (err) {
+          setError(err.message);
+        }
+      }
+
       history.push(ROUTES.LANDING);
     } catch (err) {
       setError(err.message);
@@ -44,11 +59,16 @@ function Login() {
     setValues({});
   };
 
+  useEffect(() => {
+    document.title = "Login | Jereer";
+  }, []);
+
   return (
     <UserContext.Provider value={{ loggedInUser }}>
       <Wrapper>
         <ContentWrapper>
-          {error && <p>{error}</p>}
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          {msg && <p style={{ color: "green" }}>{msg}</p>}
 
           <form onSubmit={handleLogin}>
             <Input

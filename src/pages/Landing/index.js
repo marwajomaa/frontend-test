@@ -33,7 +33,6 @@ function Landing({ user: loggedInUser }) {
   };
   const handleUserUpdate = async (e) => {
     e.preventDefault();
-    console.log(userData);
     const updateUserObj = {
       userId: userData.userId,
       username: userData.username,
@@ -50,7 +49,7 @@ function Landing({ user: loggedInUser }) {
           updateUserObj,
           {
             headers: {
-              Authorization: `Basic ${user.token}`,
+              Authorization: user.token,
             },
           }
         );
@@ -60,7 +59,7 @@ function Landing({ user: loggedInUser }) {
         setMsg("Update successful");
         setUpdatedUser(updatedUser);
       } catch (err) {
-        setError(err.message);
+        setError(err.response.data.error);
       }
     }
   };

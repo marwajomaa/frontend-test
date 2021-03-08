@@ -17,18 +17,18 @@ function App() {
   useEffect(() => {
     const getUser = async () => {
       const userInfo = await getUserByUserId(user?.uid);
-      await setLoggedInUser(user);
+      await setLoggedInUser(userInfo);
       localStorage.setItem("user", JSON.stringify(userInfo));
     };
     if (user?.uid) {
       getUser();
     }
-  }, []);
+  }, [user]);
 
-  if (!loggedInUser) return <h1>Loading...</h1>;
+  if (!user) return <h1>Loading...</h1>;
 
   return (
-    <UserContext.Provider value={{ loggedInUser }}>
+    <UserContext.Provider value={{ user }}>
       <Router>
         <Suspense fallback={<p>Loading...</p>}>
           <Switch>
