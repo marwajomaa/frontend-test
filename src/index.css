@@ -24,7 +24,7 @@ body {
   margin: 0;
   box-sizing: border-box;
   font-family: var(--font-family);
-  background-color: var(--background-color);
+  background-color: var(--background-color-dark);
   color: var(--text-color);
 }
 

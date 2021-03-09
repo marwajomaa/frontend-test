@@ -1,0 +1,153 @@
+nav {
+  background-color: #2e3138;
+  padding: 15px 30px 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #2abbff;
+  font-size: 1.1rem;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  box-shadow: var(--box-shadow);
+  z-index: 1000;
+}
+
+.navMenu {
+  flex-basis: 70%;
+  max-width: 650px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.navMenu a:hover {
+  color: #1ea5e4;
+}
+
+.navMenu span {
+  padding: 10px;
+  margin: 0 0 0 10px;
+  cursor: pointer;
+}
+
+.navMenu span:hover {
+  background-color: #484b5b;
+}
+
+.active {
+  border-bottom: 2px solid #fff;
+}
+
+section {
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-section {
+  background-image: url("../../assets/hero.jpg");
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  object-fit: contain;
+  vertical-align: middle;
+  position: relative;
+}
+
+.hero-section :hover {
+  opacity: 0.7;
+}
+
+.hero-container {
+  background: rgba(61, 61, 61, 0.3);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--background-color-dark);
+  font-size: 1.5rem;
+  font-weight: 500;
+  position: relative;
+}
+
+.hero-container p {
+  text-align: center;
+  font-size: 1rem;
+  width: 80%;
+  line-height: 2rem;
+}
+
+.about-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 10px;
+  width: 90%;
+  height: 100%;
+  font-size: 16px;
+  line-height: 2rem;
+  margin: 20px auto;
+}
+
+.about-imgWrapper {
+  width: 300px;
+  height: 300px;
+  margin-left: 40px;
+}
+
+.bout-left {
+  font-size: 16px;
+  margin-right: 30px;
+  width: 300px;
+  overflow: hidden;
+  padding: 20px;
+  height: 100%;
+}
+
+.bout-left h1 {
+  font-size: 1.2rem;
+  text-align: center;
+}
+.bout-left p {
+  text-align: left;
+}
+
+.bout-right {
+  flex-basis: 50%;
+}
+
+.update {
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.update-content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.update-form {
+  width: 350px;
+  align-items: flex-start;
+  max-width: 400px;
+}
+
+.input-div {
+  margin: 15px auto;
+}
+
+@media (max-width: 900px) {
+  .hero-container {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+}

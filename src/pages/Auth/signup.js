@@ -6,13 +6,7 @@ import { auth } from "../../firebase";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Logo from "../../assets/jereer-logo.png";
-import {
-  Wrapper,
-  ContentWrapper,
-  LogoWrapper,
-  InputDiv,
-  Paragraph,
-} from "./style.js";
+import { Wrapper, ContentWrapper, LogoWrapper, InputDiv } from "./style.js";
 
 function Signup() {
   const history = useHistory();
