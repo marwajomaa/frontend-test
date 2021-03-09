@@ -70,15 +70,7 @@ function Landing({ user: loggedInUser }) {
     document.title = "Landing page";
   }, []);
 
-  if (loading)
-    return (
-      <Skeleton
-        count={2}
-        width={1110}
-        height={400}
-        style={{ marginBottom: "4px" }}
-      />
-    );
+  if (loading) return <Skeleton count={2} width={1230} height={400} />;
   return (
     <div>
       <div>
@@ -182,8 +174,28 @@ function Landing({ user: loggedInUser }) {
             <h1>Want to update Your Data?</h1>
             <div className="update-content-wrapper">
               <div className="update-form">
-                {error && <p>{error}</p>}
-                {msg && <p>{msg}</p>}
+                {error && (
+                  <p
+                    style={{
+                      color: "green",
+                      textAlign: "center",
+                      fontSize: "16px",
+                    }}
+                  >
+                    {error}
+                  </p>
+                )}
+                {msg && (
+                  <p
+                    style={{
+                      color: "green",
+                      textAlign: "center",
+                      fontSize: "16px",
+                    }}
+                  >
+                    {msg}
+                  </p>
+                )}
 
                 <form onSubmit={handleUserUpdate}>
                   <div className="input-div">
